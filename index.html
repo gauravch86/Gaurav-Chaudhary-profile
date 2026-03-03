@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaurav Chaudhary — Executive Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --surface2: #243044;
+      --text: #e6edf3;
+      --muted: #8b9cb3;
+      --accent: #58a6ff;
+      --success: #3fb950;
+      --gold: #d4a853;
+      --prodapt: #c41e3a;
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--surface) 0%, #0d1117 100%);
+      padding: 2.5rem 1.5rem 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .hero-inner { flex-direction: row; text-align: left; gap: 2rem; }
+    }
+    .hero-content { text-align: center; }
+    @media (min-width: 640px) { .hero-content { text-align: left; } }
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+    .hero .tagline { color: var(--accent); font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .hero .meta { color: var(--muted); font-size: 0.95rem; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+    .container-wide { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
+
+    section { padding: 2.5rem 0; }
+    section > h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212,168,83,.25);
+    }
+    section > .lead { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+
+    /* Map + footprint — map full width on top, list below */
+    .map-wrap { display: flex; flex-direction: column; gap: 1rem; }
+    .map-wrap .map-container { width: 100%; }
+    #map {
+      height: 520px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    @media (min-width: 768px) { #map { height: 600px; } }
+    .footprint-list {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 12px;
+      padding: 1rem;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+    .map-legend { font-size: 0.8rem; color: var(--muted); margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .map-legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .map-legend .dot.gold { background: var(--gold); }
+    .map-legend .dot.flight { background: var(--accent); }
+    .map-legend .dot.reloc { background: var(--success); }
+    .map-legend .dot.repat { background: #a371f7; }
+    .footprint-item {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      font-size: 0.9rem;
+    }
+    .footprint-item:last-child { border-bottom: 0; }
+    .footprint-group { margin-bottom: 1.25rem; }
+    .footprint-group:last-child { margin-bottom: 0; }
+    .footprint-period {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footprint-item {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      font-size: 0.9rem;
+    }
+    .footprint-item:last-child { border-bottom: 0; }
+    .footprint-item .loc { font-weight: 600; color: var(--gold); margin-bottom: 0.2rem; }
+    .footprint-item .years { color: var(--accent); font-size: 0.85em; }
+    .footprint-item .role { color: var(--text); margin: 0.2rem 0; }
+    .footprint-item .clients { color: var(--success); font-size: 0.85em; }
+
+    /* Timeline */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--success));
+      border-radius: 2px;
+      opacity: .6;
+    }
+    .timeline-item { position: relative; padding-left: 2.75rem; padding-bottom: 1.5rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 0.4rem;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 0 3px var(--bg);
+    }
+    .timeline-item.current::before { border-color: var(--gold); background: var(--gold); }
+    .timeline-year { font-weight: 700; color: var(--accent); font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .timeline-role { font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+    .timeline-geo { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .timeline-clients { font-size: 0.85rem; color: var(--success); }
+    .timeline-clients strong { color: var(--gold); }
+
+    /* Summary / paragraphs */
+    .summary p { margin-bottom: 0.75rem; color: var(--text); }
+    .summary p:last-child { margin-bottom: 0; }
+    .summary .role-line { font-size: 1rem; font-weight: 600; color: var(--gold); margin-bottom: 1rem; }
+    .story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+    .story-card { background: var(--surface); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 1.25rem; }
+    .story-card h3 { font-size: 1.1rem; color: var(--gold); margin-bottom: 0.35rem; }
+    .story-card .deal { font-size: 0.9rem; color: var(--success); font-weight: 500; margin-bottom: 0.75rem; }
+    .story-card .sub { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin: 0.75rem 0 0.35rem; }
+    .story-card ul { margin: 0; padding-left: 1.1rem; color: var(--text); font-size: 0.9rem; line-height: 1.5; }
+    .story-card li { margin-bottom: 0.3rem; }
+
+    /* Career list (Gamma style) */
+    .career-list { list-style: none; }
+    .career-list li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      align-items: start;
+    }
+    .career-list li:last-child { border-bottom: 0; }
+    .career-list .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface2);
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .career-list .title { font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .career-list .when { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.15rem; }
+    .career-list .where { font-size: 0.85rem; color: var(--accent); }
+
+    /* Competencies grid */
+    .competencies { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .comp-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .comp-card h3 { font-size: 1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    .comp-card p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1rem; }
+    @media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr; } }
+    .skills-column { background: var(--surface); border: 1px solid rgba(255,255,255,.06); border-radius: 10px; padding: 1.25rem; }
+    .skills-column h3 { font-size: 1rem; color: var(--gold); margin-bottom: 0.75rem; font-weight: 600; }
+    .skills-column ul { list-style: none; padding: 0; margin: 0; }
+    .skills-column li { font-size: 0.9rem; color: var(--text); padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+    .skills-column li:last-child { border-bottom: 0; }
+    .skills-column li::before { content: '· '; color: var(--accent); font-weight: bold; }
+
+    /* Metrics */
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .metric-value { font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 0.25rem; }
+    .metric-label { font-size: 0.8rem; color: var(--muted); }
+
+    /* Bullet lists */
+    .bullet-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+    .bullet-list li { margin-bottom: 0.35rem; color: var(--text); font-size: 0.95rem; }
+
+    /* Early career */
+    .early-career { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .early-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .early-card .company { font-weight: 600; color: var(--gold); margin-bottom: 0.25rem; }
+    .early-card .role { font-size: 0.9rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .early-card .tenure { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .early-card p { font-size: 0.9rem; color: var(--text); margin: 0; }
+
+    /* Education */
+    .edu { background: var(--surface); border: 1px solid rgba(255,255,255,.06); border-radius: 10px; padding: 1.25rem; }
+    .edu .degree { font-weight: 600; color: var(--gold); margin-bottom: 0.2rem; }
+    .edu .school { color: var(--accent); font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .edu .years { font-size: 0.85rem; color: var(--muted); }
+
+    /* Key achievements strip */
+    .achievements { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem; }
+    .achievements .item { display: flex; align-items: center; gap: 0.5rem; }
+    .achievements .value { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+    .achievements .label { font-size: 0.9rem; color: var(--muted); }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .contact-item {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .contact-item .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+    .contact-item .value { font-weight: 500; color: var(--text); }
+    .contact-item a { color: var(--accent); text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>Gaurav Chaudhary</h1>
+        <p class="tagline">Regional Customer Success Executive & Account Partner (17.8+ yrs of Experience)</p>
+        <p class="meta">7+ digital transformations · European & Global Accounts</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Professional Summary -->
+    <section>
+      <h2>Professional Summary</h2>
+      <p class="role-line">Regional Customer Success & Account Partner (17.8+ yrs of Experience)</p>
+      <div class="summary">
+        <p>
+          Accomplished, driven C-suite executive with a proven track record in multi-year IT roadmap delivery—<strong>Transformation</strong>, <strong>Digitalization</strong>, <strong>Cloud journey</strong>—with sharp focus on quality, timeliness, project cost/EBIT and delivery models that leverage technology (AI/ML) to meet customer needs.
+        </p>
+        <p>
+          Delivered <strong>7 back-to-back transformations</strong> through a combination of right strategy, sharp execution and engaging leadership, with client collaboration at the forefront. Diligent in control of <strong>multi-million $ P&L</strong> and scalable program management, with international exposure and global organisation leadership. <strong>7+ years in pre-sales</strong>, delivering transformation programs and Digital/Cloud journeys while optimising CAPEX & OPEX.
+        </p>
+        <p>
+          Recent highlight: led presales for <strong>AI Factory</strong> setup for a Telco, leveraging Amdocs AI platform/studios in partnership with Nvidia, ClearML and Prompt Security. Rich experience in selling <strong>PaaS, SaaS, IaaC</strong> and enabling rapidly changing market needs.
+        </p>
+      </div>
+    </section>
+
+    <!-- Map + Delivery footprint (always visible, with Pune) -->
+    <section>
+      <h2>Where I've delivered — year by year</h2>
+      <p class="lead">Locations, roles and accounts at a glance. India: Pune (early career) and Gurugram (iMEA).</p>
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div class="footprint-list" id="footprint-list">
+          <!-- Grouped by period, oldest to newest -->
+
+          <div class="footprint-group">
+            <div class="footprint-period">2009 – 2014</div>
+            <div class="footprint-item">
+              <div class="loc">🇮🇳 Pune, India</div>
+              <div class="role">Software Engineer (Infosys) → Senior SME / Group Lead (Amdocs)</div>
+              <div class="clients">Telstra (CAT with Accenture), Mainframes · Clearwire, TKS Indonesia, ATT Mobility, NET Brazil — CRM, OMS, Billing, OCS</div>
+            </div>
+            <div class="footprint-item">
+              <div class="loc">🇺🇸 USA</div>
+              <div class="role">Senior SME (remote / engagement)</div>
+              <div class="clients">Clearwire, ATT Mobility</div>
+            </div>
+            <div class="footprint-item">
+              <div class="loc">🇮🇩 Indonesia</div>
+              <div class="role">Senior SME</div>
+              <div class="clients">TKS Indonesia</div>
+            </div>
+            <div class="footprint-item">
+              <div class="loc">🇧🇷 Brazil</div>
+              <div class="role">Group Lead, NET Brazil transformation</div>
+              <div class="clients">NET Brazil</div>
+            </div>
+          </div>
+
+          <div class="footprint-group">
+            <div class="footprint-period">2015 – 2021</div>
+            <div class="footprint-item">
+              <div class="loc">🇵🇪 Lima, Peru</div>
+              <div class="role">Testing Manager / Site Partner → Production Mgr → Ops Partner Director</div>
+              <div class="clients">Telefonica Peru — transformation, Peru as MGS role model for LATAM</div>
+            </div>
+          </div>
+
+          <div class="footprint-group">
+            <div class="footprint-period">2021 – 2022</div>
+            <div class="footprint-item">
+              <div class="loc">🇦🇷 Argentina · 🇨🇱 Chile</div>
+              <div class="role">Regional Operations Partner, LATAM</div>
+              <div class="clients">Telefonica HISPAM — $100M MGS renewal (TEF Peru/Chile/Arg)</div>
+            </div>
+          </div>
+
+          <div class="footprint-group">
+            <div class="footprint-period">2022 – 2023</div>
+            <div class="footprint-item">
+              <div class="loc">🇮🇳 Gurugram, India</div>
+              <div class="role">Regional Operations Partner, iMEA</div>
+              <div class="clients">Airtel, VIL, TSA, H3G Ireland, H3G UK — H3G IR stabilization, non-DOX MGS, revenue $30M → $85M</div>
+            </div>
+            <div class="footprint-item">
+              <div class="loc">🇿🇦 South Africa</div>
+              <div class="role">Regional Ops Partner, iMEA</div>
+              <div class="clients">TSA</div>
+            </div>
+            <div class="footprint-item">
+              <div class="loc">🇲🇽 Mexico · 🇨🇾 Cyprus</div>
+              <div class="role">24×7 delivery centers</div>
+              <div class="clients">TEF support · Global delivery</div>
+            </div>
+          </div>
+
+          <div class="footprint-group">
+            <div class="footprint-period">2022 – 2025</div>
+            <div class="footprint-item">
+              <div class="loc">🇮🇪 Ireland</div>
+              <div class="role">Stabilization & growth, then EMEA</div>
+              <div class="clients">H3G Ireland — Single IT Vendor path</div>
+            </div>
+            <div class="footprint-item">
+              <div class="loc">🇬🇧 Reading, UK</div>
+              <div class="role">Engineering Services Leader → Client Services Executive</div>
+              <div class="clients">H3G UK — $124M Venus deal (5 yrs), Cloud, IT, Network, Security, EUC, DevSecOps, MGS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="map-legend">
+        <span class="dot gold"></span> Location
+        <span class="dot flight"></span> Flight (travel)
+        <span class="dot reloc"></span> Relocation
+        <span class="dot repat"></span> Repatriation
+      </p>
+    </section>
+
+    <!-- Career timeline -->
+    <section>
+      <h2>Career timeline — roles, geography & clients</h2>
+      <div class="timeline">
+        <div class="timeline-item current">
+          <div class="timeline-year">2023 – 2025</div>
+          <div class="timeline-role">Amdocs · Engineering Services Leader → Client Services Executive</div>
+          <div class="timeline-geo">🇬🇧 UK (Reading) · 🇮🇪 Ireland · EMEA</div>
+          <div class="timeline-clients"><strong>H3G UK & Ireland</strong> — $124M Venus deal (5 yrs), Single IT Vendor (Cloud, IT, Network, Security, EUC), DevSecOps, MGS</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022 – 2023</div>
+          <div class="timeline-role">Amdocs · Regional Operations Partner</div>
+          <div class="timeline-geo">🇮🇳 India (Gurugram) · iMEA</div>
+          <div class="timeline-clients"><strong>Airtel, VIL, TSA, H3G Ireland, H3G UK</strong> — H3G IR stabilization, non-DOX MGS from TechM, revenue $30M → $85M</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2021 – 2022</div>
+          <div class="timeline-role">Amdocs · Regional Operations Partner</div>
+          <div class="timeline-geo">🇦🇷 Argentina · 🇨🇱 Chile · LATAM</div>
+          <div class="timeline-clients"><strong>Telefonica HISPAM</strong> — $100M MGS renewal (TEF Peru/Chile/Arg), replicated Peru model</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2018 – 2021</div>
+          <div class="timeline-role">Amdocs · Production Manager → Operations Partner Director</div>
+          <div class="timeline-geo">🇵🇪 Peru (Lima) · LATAM</div>
+          <div class="timeline-clients"><strong>Telefonica Peru</strong> — Peru as MGS role model for LATAM, post-transformation operations</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2015 – 2018</div>
+          <div class="timeline-role">Amdocs · Software Testing Manager → Site Partner</div>
+          <div class="timeline-geo">🇵🇪 Peru (Lima)</div>
+          <div class="timeline-clients"><strong>Telefonica Peru</strong> — End-to-end transformation leadership</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2010 – 2015</div>
+          <div class="timeline-role">Amdocs · Senior SME → Group Lead</div>
+          <div class="timeline-geo">🇮🇳 Pune / Gurugram · 🇺🇸 US · 🇮🇩 Indonesia · 🇧🇷 Brazil</div>
+          <div class="timeline-clients"><strong>Clearwire, TKS Indonesia, ATT Mobility, NET Brazil</strong> — CRM, OMS, Billing, OCS, TC7.5</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2009 – 2010</div>
+          <div class="timeline-role">Software Engineer (SME)</div>
+          <div class="timeline-geo">🇮🇳 India (Mysore, Pune)</div>
+          <div class="timeline-clients"><strong>Infosys</strong> — Telstra transformation CAT (with Accenture), Mainframes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership Excellence -->
+    <section>
+      <h2>Leadership excellence</h2>
+      <div class="summary">
+        <p>
+          Proven ability to lead multi-cultural global teams as per customer expectations and run the organisation profitably with innovation and automation. Expertise in team building and setting up guiding agile practices.
+        </p>
+        <p>
+          As Regional Operations Partner for iMEA (India, Middle East, Europe & Africa), <strong>led a team size of &gt;1000 FTEs</strong> and another <strong>400 vendor-based personnel</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Financials & Satisfaction -->
+    <section>
+      <h2>Financials & employee / customer satisfaction</h2>
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="metric-value">25%</div>
+          <div class="metric-label">Increase in revenue in LATAM (TEF) — upselling non-organic services</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">70%</div>
+          <div class="metric-label">E-SAT improvement — significant reductions in attrition</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">20%</div>
+          <div class="metric-label">C-SAT score improved from 3.2 to 3.8 (Trapped → Truly Loyal)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">$125M</div>
+          <div class="metric-label">Business growth in H3G — 5 yrs Managed Services, ~$25M annual revenue</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">30%</div>
+          <div class="metric-label">EBIT increase — AI/ML & MGS FTEs developing BAU CRs, ~$3M pure EBIT</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core skills and Expertise -->
+    <section>
+      <h2>Core skills & Expertise</h2>
+      <div class="skills-grid">
+        <div class="skills-column">
+          <h3>Leadership & Strategy</h3>
+          <ul>
+            <li>Customer Success Leadership</li>
+            <li>Digital Transformation</li>
+            <li>Program Management</li>
+            <li>CxO Advisory</li>
+          </ul>
+        </div>
+        <div class="skills-column">
+          <h3>Technical</h3>
+          <ul>
+            <li>Cloud (AWS, Kubernetes)</li>
+            <li>AI/ML, API Gateway</li>
+            <li>SaaS, PaaS, IaaC</li>
+            <li>IT Managed Services AIOps</li>
+          </ul>
+        </div>
+        <div class="skills-column">
+          <h3>Business & Growth</h3>
+          <ul>
+            <li>P&L Management</li>
+            <li>Pre-Sales & Business Development</li>
+            <li>CAPEX & OPEX Optimization</li>
+            <li>Revenue Growth & EBIT</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Achievements -->
+    <section>
+      <h2>Key achievements</h2>
+      <div class="achievements">
+        <div class="item"><span class="value">17+</span><span class="label">Years experience — IT industry leadership and delivery excellence</span></div>
+        <div class="item"><span class="value">15+</span><span class="label">Years at Amdocs — Progressive career growth and transformation leadership</span></div>
+        <div class="item"><span class="value">8+</span><span class="label">Countries — India, UK, Peru (relocation); key roles / travel to Indonesia, USA, Chile, Mexico, Ireland</span></div>
+        <div class="item"><span class="value">7</span><span class="label">Back-to-back transformation programs delivered across regions</span></div>
+        <div class="item"><span class="value">—</span><span class="label">Managed multi-million P&L portfolios with consistent EBIT growth</span></div>
+        <div class="item"><span class="value">—</span><span class="label">Spearheaded AI Factory setup and advanced digitalization initiatives</span></div>
+        <div class="item"><span class="value">★</span><span class="label">Recognized with CEO Award for $100M managed services deal</span></div>
+      </div>
+    </section>
+
+    <!-- Stories which standout - Challenges converted into Business Growth Engine -->
+    <section>
+      <h2>Stories which standout</h2>
+      <p class="lead">Challenges converted into &ldquo;Business Growth Engine&rdquo;</p>
+      <div class="story-grid">
+        <div class="story-card">
+          <h3>Telefonica Argentina</h3>
+          <p class="deal">$100m MGS renewal deal with TEF HISPAM FY22</p>
+          <p class="sub">Problem</p>
+          <ul>
+            <li>Backlog of 3000+ production incidents; 500 incidents daily (2020–21, COVID)</li>
+            <li>Low C-SAT and E-SAT; TEF Arg blocking renewal of TEF Peru/Chile MGS deals</li>
+          </ul>
+          <p class="sub">Steps taken</p>
+          <ul>
+            <li>Backlog categorization and weekend drives with taskforce to clear low-hanging items</li>
+            <li>Top-offender categorization (Data; Code; User/Business)</li>
+            <li>24×7 coverage by scaling team in India, Cyprus, Mexico and Argentina</li>
+            <li>C-SAT: weekly CxO engagements with transparency on offenders and actions</li>
+            <li>E-SAT: deep dive on morale (progressions, hiring, A-team)</li>
+            <li>Personal ownership of TEF Arg to fix in-depth issues and leverage in renewal</li>
+          </ul>
+        </div>
+        <div class="story-card">
+          <h3>H3G Ireland & UK</h3>
+          <p class="deal">Business growth Cloud, IT, Network — Amdocs as Single IT Vendor in H3G UK & Ireland</p>
+          <p class="sub">Problem / Opportunity</p>
+          <ul>
+            <li>Tap H3G potential; Amdocs only with 3-Ireland</li>
+            <li>Low C-SAT in 3-Ireland, account in negative EBIT; low E-SAT, leadership burnout</li>
+            <li>Cloud/IT/Network outsourced to TechM — back-and-forth, blame game</li>
+          </ul>
+          <p class="sub">Steps taken</p>
+          <ul>
+            <li>3Ireland: quick stabilization; focused on recurring legal issues to in-house work from TechM</li>
+            <li>8 months transition of 80 applications (Cloud, EUC, Security & Network)</li>
+            <li>Turnaround in 3Ireland proved single ownership (Cloud, Security, IT, Production mgmt. & MGS); joint CTO/CEO case — Amdocs won <strong>$125m for 5 yrs</strong>, paving path for 3UK</li>
+            <li>3UK transition in 6 months with focus on Network Service Desk and Security</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Early Career -->
+    <section>
+      <h2>Early career foundation</h2>
+      <div class="early-career">
+        <div class="early-card">
+          <div class="company">Infosys</div>
+          <div class="role">Software Engineer</div>
+          <div class="tenure">March 2009 – August 2010 (1 year 6 months)</div>
+          <p>Built foundational software development and engineering skills at one of India's leading IT services companies.</p>
+        </div>
+        <div class="early-card">
+          <div class="company">Gebr. Pfeiffer, Inc.</div>
+          <div class="role">Project Engineer</div>
+          <div class="tenure">June 2008 – March 2009 (10 months)</div>
+          <p>Applied mechanical engineering expertise in project execution and delivery.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section>
+      <h2>Educational background</h2>
+      <div class="edu">
+        <div class="degree">Bachelor of Technology (B.Tech.)</div>
+        <div class="school">AKTU · Ideal Institute of Technology</div>
+        <div class="years">2004 – 2008</div>
+      </div>
+    </section>
+
+    <!-- Get in Touch -->
+    <section>
+      <h2>Get in touch</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="label">Phone</div>
+          <div class="value"><a href="tel:+919650044746">+91 9650044746</a> (Mobile)</div>
+        </div>
+        <div class="contact-item">
+          <div class="label">Location</div>
+          <div class="value">Gurugram, Haryana, India</div>
+        </div>
+        <div class="contact-item">
+          <div class="label">Email</div>
+          <div class="value"><a href="mailto:gaurav.chaudhary@example.com">Email Me</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Gaurav Chaudhary · Executive — Product / Services Delivery</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <style>
+    .year-tooltip { font-weight: 700 !important; color: #d4a853 !important; font-size: 11px !important; background: rgba(15,20,25,0.92) !important; border: 1px solid rgba(212,168,83,0.5) !important; padding: 3px 6px !important; border-radius: 4px !important; white-space: nowrap !important; }
+    .house-tooltip { font-weight: 600 !important; color: #3fb950 !important; font-size: 11px !important; background: rgba(15,20,25,0.95) !important; border: 1px solid rgba(63,185,80,0.5) !important; padding: 3px 6px !important; border-radius: 4px !important; white-space: nowrap !important; }
+    .path-arrow { background: none !important; border: none !important; }
+  </style>
+  <script>
+    (function() {
+      var map = L.map('map', { zoomControl: true }).setView([18, 15], 2);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap, &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      var Pune = [18.52, 73.85], Gurgaon = [28.46, 77.08], Lima = [-12.0, -77.0];
+      var UK = [51.5, -0.1], Ireland = [53.3, -6.3];
+      var Dallas = [32.78, -96.80], Indonesia = [-6.2, 106.8], SaoPaulo = [-23.55, -46.63];
+      var Chile = [-33.45, -70.66], Argentina = [-34.60, -58.38];
+      var Guadalajara = [20.66, -103.35], SouthAfrica = [-26.2, 28.0], Seattle = [47.6, -122.33], Philippines = [14.6, 121.0];
+
+      function curvedPath(a, b, strength) {
+        strength = strength || 4;
+        var mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+        var perpLat = (b[1] - a[1]) * strength * 0.02;
+        var perpLng = -(b[0] - a[0]) * strength * 0.02;
+        var bend = [mid[0] + perpLat, mid[1] + perpLng];
+        return [a, bend, b];
+      }
+
+      function addArrow(line, color) {
+        var a = line[0], b = line[line.length - 1];
+        var dLng = b[1] - a[1], dLat = b[0] - a[0];
+        var deg = (Math.atan2(dLng, dLat) * 180 / Math.PI);
+        var arrowIcon = L.divIcon({
+          className: 'path-arrow',
+          html: '<span style="color:' + color + ';font-size:10px;display:inline-block;transform:rotate(' + deg + 'deg);">►</span>',
+          iconSize: [12, 12],
+          iconAnchor: [6, 6]
+        });
+        L.marker(b, { icon: arrowIcon, interactive: false }).addTo(map);
+      }
+
+      function addPlaneOnCurve(path) {
+        var mid = path[1];
+        var a = path[0], b = path[2];
+        var dLng = b[1] - a[1], dLat = b[0] - a[0];
+        var deg = (Math.atan2(dLng, dLat) * 180 / Math.PI);
+        var planeIcon = L.divIcon({
+          className: 'path-arrow',
+          html: '<span style="font-size:14px;opacity:0.9;display:inline-block;transform:rotate(' + deg + 'deg);">✈</span>',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        });
+        L.marker(mid, { icon: planeIcon, interactive: false }).addTo(map);
+      }
+
+      var subtle = { weight: 1.5, opacity: 0.6 };
+      var subtleFlight = { color: '#7aa3d4', weight: 1.4, opacity: 0.55, dashArray: '5, 6' };
+      var subtleReloc = { color: '#5a9c6e', weight: 1.5, opacity: 0.6 };
+      var repatColor = '#a371f7';
+      var travelColor = '#8b9cb3';
+
+      // 1. Flight: Pune → Indonesia (curved, subtle, airplane)
+      var pathPuneIndonesia = curvedPath(Pune, Indonesia, 5);
+      L.polyline(pathPuneIndonesia, subtleFlight).addTo(map);
+      addPlaneOnCurve(pathPuneIndonesia);
+
+      // 2. Flight: Pune → Dallas (curved, subtle, airplane)
+      var pathPuneDallas = curvedPath(Pune, Dallas, 5);
+      L.polyline(pathPuneDallas, subtleFlight).addTo(map);
+      addPlaneOnCurve(pathPuneDallas);
+
+      // 3. Flight: Gurgaon → Sao Paulo (curved, subtle, airplane)
+      var pathGurgaonSaoPaulo = curvedPath(Gurgaon, SaoPaulo, 5);
+      L.polyline(pathGurgaonSaoPaulo, subtleFlight).addTo(map);
+      addPlaneOnCurve(pathGurgaonSaoPaulo);
+
+      // 4. Relocation: Gurgaon → Lima (curved, subtle)
+      var pathGurgaonLima = curvedPath(Gurgaon, Lima, 4);
+      L.polyline(pathGurgaonLima, subtleReloc).addTo(map);
+      addArrow(pathGurgaonLima, subtleReloc.color);
+
+      // Repatriation: Lima → Gurgaon 2021
+      var pathLimaGurgaon = curvedPath(Lima, Gurgaon, 4);
+      L.polyline(pathLimaGurgaon, { color: repatColor, weight: 1.8, opacity: 0.75 }).addTo(map);
+      addArrow(pathLimaGurgaon, repatColor);
+
+      // 5. Relocation: Gurgaon → UK (curved, subtle)
+      var pathGurgaonUK = curvedPath(Gurgaon, UK, 4);
+      L.polyline(pathGurgaonUK, subtleReloc).addTo(map);
+      addArrow(pathGurgaonUK, subtleReloc.color);
+
+      // Travel: UK ↔ Ireland
+      L.polyline([UK, Ireland], { color: travelColor, weight: 1.2, opacity: 0.55, dashArray: '4, 4' }).addTo(map);
+      L.polyline([Ireland, UK], { color: travelColor, weight: 1.2, opacity: 0.55, dashArray: '4, 4' }).addTo(map);
+
+      // Repatriation: UK → Gurgaon Sep 2025
+      var pathUKGurgaon = curvedPath(UK, Gurgaon, 4);
+      L.polyline(pathUKGurgaon, { color: repatColor, weight: 1.8, opacity: 0.75 }).addTo(map);
+      addArrow(pathUKGurgaon, repatColor);
+
+      // 6. Flight: Lima → Chile, Lima → Argentina (curved, subtle, airplane)
+      var pathLimaChile = curvedPath(Lima, Chile, 3);
+      L.polyline(pathLimaChile, subtleFlight).addTo(map);
+      addPlaneOnCurve(pathLimaChile);
+      var pathLimaArgentina = curvedPath(Lima, Argentina, 3);
+      L.polyline(pathLimaArgentina, subtleFlight).addTo(map);
+      addPlaneOnCurve(pathLimaArgentina);
+
+      // Peru → Mexico (Guadalajara) travel with airplane
+      var pathLimaMexico = curvedPath(Lima, Guadalajara, 4);
+      L.polyline(pathLimaMexico, subtleFlight).addTo(map);
+      addPlaneOnCurve(pathLimaMexico);
+
+      // Pune → South Africa (subtle, different color - remote)
+      var subtleRemote1 = { color: '#c9b896', weight: 1.3, opacity: 0.5, dashArray: '5, 6' };
+      var pathPuneSouthAfrica = curvedPath(Pune, SouthAfrica, 4);
+      L.polyline(pathPuneSouthAfrica, subtleRemote1).addTo(map);
+
+      // Pune → Seattle (subtle, different color - remote)
+      var subtleRemote2 = { color: '#9ca8b8', weight: 1.3, opacity: 0.5, dashArray: '5, 6' };
+      var pathPuneSeattle = curvedPath(Pune, Seattle, 5);
+      L.polyline(pathPuneSeattle, subtleRemote2).addTo(map);
+
+      // Pune → Philippines (subtle, different color - remote)
+      var subtleRemote3 = { color: '#a89cb8', weight: 1.3, opacity: 0.5, dashArray: '5, 6' };
+      var pathPunePhilippines = curvedPath(Pune, Philippines, 4);
+      L.polyline(pathPunePhilippines, subtleRemote3).addTo(map);
+
+      // Location markers (gold dots) + custom tags
+      var locations = [
+        { pos: Pune, tag: '2009–14', country: 'Pune, India', role: 'SME → Senior SME / Group Lead', clients: 'Infosys, Amdocs · Telstra, Clearwire, TKS Indonesia, ATT, NET Brazil' },
+        { pos: Gurgaon, tag: '2021–23', country: 'Gurugram, India', role: 'Regional Ops Partner, iMEA', clients: 'Airtel, VIL, TSA, H3G Ireland, H3G UK' },
+        { pos: Lima, tag: 'TEF Peru 2015-21', country: 'Lima, Peru', role: 'Testing Mgr → Ops Partner Director', clients: 'Telefonica Peru' },
+        { pos: UK, tag: 'H3G 2022-25', country: 'Reading, UK', role: 'Engineering Services Leader → CSE', clients: 'H3G UK · $124M Venus' },
+        { pos: Ireland, tag: 'H3G 2022-25', country: 'Ireland', role: 'Stabilization → EMEA', clients: 'H3G Ireland' },
+        { pos: Dallas, tag: 'AT&T 2013', country: 'Dallas, USA', role: 'Senior SME', clients: 'ATT Mobility' },
+        { pos: Indonesia, tag: 'TKS 2012-13', country: 'Indonesia', role: 'Senior SME', clients: 'TKS Indonesia' },
+        { pos: SaoPaulo, tag: 'NET Brazil 2013-14', country: 'Sao Paulo, Brazil', role: 'Group Lead', clients: 'NET Brazil' },
+        { pos: Chile, tag: 'TEF Chile 2019-22', country: 'Chile', role: 'Regional Ops Partner', clients: 'Telefonica HISPAM' },
+        { pos: Argentina, tag: 'TEF Argentina 2019-22', country: 'Argentina', role: 'Regional Ops Partner', clients: 'Telefonica HISPAM' },
+        { pos: [20.66, -103.35], tag: 'Nearshore center', country: 'Guadalajara, Mexico', role: 'Delivery center', clients: 'TEF support' },
+        { pos: [35.2, 33.4], tag: 'Nearshore center', country: 'Cyprus', role: 'Delivery center', clients: 'Global delivery' },
+        { pos: SouthAfrica, tag: 'Telkomsel 2022-23 Remote', country: 'South Africa', role: 'Remote engagement', clients: 'TSA / Telkomsel' },
+        { pos: Seattle, tag: 'CLWR 2010-11 remote', country: 'Seattle, USA', role: 'Senior SME', clients: 'Clearwire' },
+        { pos: Philippines, tag: 'PLDT 2012 remote', country: 'Philippines', role: 'Remote engagement', clients: 'PLDT' }
+      ];
+      var goldIcon = L.divIcon({
+        className: 'custom-marker',
+        html: '<span style="background:#d4a853;width:12px;height:12px;border-radius:50%;border:2px solid #0f1419;display:inline-block;box-shadow:0 2px 4px rgba(0,0,0,.4);"></span>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      });
+      locations.forEach(function(m) {
+        var popup = '<div style="min-width:180px;font-family:system-ui,sans-serif;">' +
+          '<strong style="color:#d4a853;">' + m.country + '</strong><br/>' +
+          '<span style="color:#58a6ff;font-size:0.85em;">' + m.role + '</span><br/>' +
+          '<span style="color:#3fb950;">' + m.clients + '</span></div>';
+        var marker = L.marker(m.pos, { icon: goldIcon }).addTo(map).bindPopup(popup);
+        marker.bindTooltip(m.tag, { permanent: true, className: 'year-tooltip', direction: 'top', offset: [0, -6] });
+      });
+    })();
+  </script>
+</body>
+</html>
