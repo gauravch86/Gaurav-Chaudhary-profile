@@ -47,6 +47,14 @@
     @media (min-width: 640px) {
       .hero-inner { flex-direction: row; text-align: left; gap: 2rem; }
     }
+    .hero-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(212,168,83,.4);
+      flex-shrink: 0;
+    }
     .hero-content { text-align: center; }
     @media (min-width: 640px) { .hero-content { text-align: left; } }
     .hero h1 {
@@ -283,10 +291,11 @@
 <body>
   <header class="hero">
     <div class="hero-inner">
+      <img class="hero-photo" src="gaurav-profile.jpg" alt="Gaurav Chaudhary" width="140" height="140" />
       <div class="hero-content">
         <h1>Gaurav Chaudhary</h1>
-        <p class="tagline">Regional Customer Success Executive & Account Partner (17.8+ yrs of Experience)</p>
-        <p class="meta">7+ digital transformations · European & Global Accounts</p>
+        <p class="tagline">Regional Customer Success Executive & Account Partner (17.10+ yrs of Experience)</p>
+        <p class="meta">7+ digital transformations · European & Global Accounts · Cell: +91 9650044746 (Mobile)</p>
       </div>
     </div>
   </header>
