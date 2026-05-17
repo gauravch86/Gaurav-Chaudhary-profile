@@ -47,13 +47,23 @@
     @media (min-width: 640px) {
       .hero-inner { flex-direction: row; text-align: left; gap: 2rem; }
     }
-    .hero-photo {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid rgba(212,168,83,.4);
+    .hero-photo-wrap {
       flex-shrink: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(212, 168, 83, 0.45);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      background: var(--surface2);
+    }
+    .hero-photo {
+      display: block;
+      width: 168px;
+      height: 210px;
+      object-fit: cover;
+      object-position: center 18%;
+    }
+    @media (min-width: 640px) {
+      .hero-photo { width: 188px; height: 236px; }
     }
     .hero-content { text-align: center; }
     @media (min-width: 640px) { .hero-content { text-align: left; } }
@@ -163,9 +173,72 @@
     .timeline-item.current::before { border-color: var(--gold); background: var(--gold); }
     .timeline-year { font-weight: 700; color: var(--accent); font-size: 0.95rem; margin-bottom: 0.2rem; }
     .timeline-role { font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
-    .timeline-geo { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.2rem; }
-    .timeline-clients { font-size: 0.85rem; color: var(--success); }
-    .timeline-clients strong { color: var(--gold); }
+    .timeline-geo { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.35rem; }
+    .timeline-summary {
+      font-size: 0.9rem;
+      color: var(--success);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .timeline-summary strong { color: var(--gold); }
+    .timeline-summary .site-loc { font-weight: 600; color: var(--gold); }
+    .timeline-mobility {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.85rem;
+      margin-top: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .timeline-mobility .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .timeline-mobility .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .timeline-mobility .tag.loc .dot { background: var(--gold); }
+    .timeline-mobility .tag.flight .dot { background: var(--accent); }
+    .timeline-mobility .tag.reloc .dot { background: var(--success); }
+    .timeline-mobility .tag.repat .dot { background: #a371f7; }
+    .timeline-sites {
+      list-style: none;
+      margin: 0 0 0.25rem;
+      padding: 0 0 0 0.65rem;
+      border-left: 2px solid rgba(212, 168, 83, 0.22);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+    .timeline-sites li {
+      margin-bottom: 0.35rem;
+      padding-left: 0.5rem;
+    }
+    .timeline-sites li:last-child { margin-bottom: 0; }
+    .timeline-sites .site-loc { font-weight: 600; color: var(--gold); }
+    .timeline-sites .site-detail { color: var(--success); }
+    .timeline-legend {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+    .timeline-legend .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .timeline-legend .dot.gold { background: var(--gold); }
+    .timeline-legend .dot.flight { background: var(--accent); }
+    .timeline-legend .dot.reloc { background: var(--success); }
+    .timeline-legend .dot.repat { background: #a371f7; }
 
     /* Summary / paragraphs */
     .summary p { margin-bottom: 0.75rem; color: var(--text); }
@@ -291,7 +364,9 @@
 <body>
   <header class="hero">
     <div class="hero-inner">
-      <img class="hero-photo" src="gaurav-profile.jpg" alt="Gaurav Chaudhary" width="140" height="140" />
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="gaurav-profile.png" alt="Gaurav Chaudhary" width="188" height="236" />
+      </div>
       <div class="hero-content">
         <h1>Gaurav Chaudhary</h1>
         <p class="tagline">Regional Customer Success Executive & Account Partner (17.10+ yrs of Experience)</p>
@@ -304,158 +379,103 @@
     <!-- Professional Summary -->
     <section>
       <h2>Professional Summary</h2>
-      <p class="role-line">Regional Customer Success & Account Partner (17.8+ yrs of Experience)</p>
+      <p class="role-line">Regional Customer Success &amp; Account Partner (17.10+ yrs of Experience)</p>
       <div class="summary">
         <p>
-          Accomplished, driven C-suite executive with a proven track record in multi-year IT roadmap delivery—<strong>Transformation</strong>, <strong>Digitalization</strong>, <strong>Cloud journey</strong>—with sharp focus on quality, timeliness, project cost/EBIT and delivery models that leverage technology (AI/ML) to meet customer needs.
+          Accomplished, driven and innovative C-suite executive, with a proven track record in multi-year IT roadmap delivery (<strong>Transformation</strong>, <strong>Digitalization</strong>, <strong>Cloud journey</strong>), focusing on Quality, Timeliness, Project cost/EBIT and effective delivery model leveraging technology (<strong>AI/ML</strong>) ensuring deliverables meet customer needs. Success includes the stabilization and business growth with <strong>7 back-to-back transformations</strong>, by combining right strategy, sharp execution and engaging leadership approach, with client collaboration at the forefront. Diligent in control of <strong>multi-million $ P&amp;L</strong> and scalable program management, with international exposure and global organization leadership expertise.
         </p>
         <p>
-          Delivered <strong>7 back-to-back transformations</strong> through a combination of right strategy, sharp execution and engaging leadership, with client collaboration at the forefront. Diligent in control of <strong>multi-million $ P&L</strong> and scalable program management, with international exposure and global organisation leadership. <strong>7+ years in pre-sales</strong>, delivering transformation programs and Digital/Cloud journeys while optimising CAPEX & OPEX.
+          <strong>7+ years</strong> experience in pre-sales, having delivered transformation programs with Digital/Cloud journeys and enabling rapidly changing market needs, keeping special focus on optimization of <strong>CAPEX &amp; OPEX</strong>. Led presales of <strong>AI Factory</strong> setup for a Telco, leveraging Amdocs AI platform/studios in partnership with Nvidia, ClearML, Prompt Security. Rich experience in selling <strong>PaaS, SaaS, IaaC</strong>.
         </p>
         <p>
-          Recent highlight: led presales for <strong>AI Factory</strong> setup for a Telco, leveraging Amdocs AI platform/studios in partnership with Nvidia, ClearML and Prompt Security. Rich experience in selling <strong>PaaS, SaaS, IaaC</strong> and enabling rapidly changing market needs.
+          I left Amdocs and decided to take some gap in order to explore AI myself to gain hands-on expertise. Well, the gap served the purpose—I have developed some nice offerings which may help rural banks/NBFCs get access to latest technology at affordable costs. Now looking to join back in an esteemed organization to leverage my rich experience / expertise in <strong>Telecom</strong> and recently acquired knowledge in <strong>Banking</strong> domain and, of course, being <strong>AI-ready</strong>.
         </p>
       </div>
     </section>
 
-    <!-- Map + Delivery footprint (always visible, with Pune) -->
+    <!-- Global map -->
     <section>
-      <h2>Where I've delivered — year by year</h2>
-      <p class="lead">Locations, roles and accounts at a glance. India: Pune (early career) and Gurugram (iMEA).</p>
+      <h2>Global delivery footprint</h2>
+      <p class="lead">Interactive map of locations, travel, relocations and repatriations. Role and account detail is in the career timeline below.</p>
       <div class="map-wrap">
         <div id="map"></div>
-        <div class="footprint-list" id="footprint-list">
-          <!-- Grouped by period, oldest to newest -->
-
-          <div class="footprint-group">
-            <div class="footprint-period">2009 – 2014</div>
-            <div class="footprint-item">
-              <div class="loc">🇮🇳 Pune, India</div>
-              <div class="role">Software Engineer (Infosys) → Senior SME / Group Lead (Amdocs)</div>
-              <div class="clients">Telstra (CAT with Accenture), Mainframes · Clearwire, TKS Indonesia, ATT Mobility, NET Brazil — CRM, OMS, Billing, OCS</div>
-            </div>
-            <div class="footprint-item">
-              <div class="loc">🇺🇸 USA</div>
-              <div class="role">Senior SME (remote / engagement)</div>
-              <div class="clients">Clearwire, ATT Mobility</div>
-            </div>
-            <div class="footprint-item">
-              <div class="loc">🇮🇩 Indonesia</div>
-              <div class="role">Senior SME</div>
-              <div class="clients">TKS Indonesia</div>
-            </div>
-            <div class="footprint-item">
-              <div class="loc">🇧🇷 Brazil</div>
-              <div class="role">Group Lead, NET Brazil transformation</div>
-              <div class="clients">NET Brazil</div>
-            </div>
-          </div>
-
-          <div class="footprint-group">
-            <div class="footprint-period">2015 – 2021</div>
-            <div class="footprint-item">
-              <div class="loc">🇵🇪 Lima, Peru</div>
-              <div class="role">Testing Manager / Site Partner → Production Mgr → Ops Partner Director</div>
-              <div class="clients">Telefonica Peru — transformation, Peru as MGS role model for LATAM</div>
-            </div>
-          </div>
-
-          <div class="footprint-group">
-            <div class="footprint-period">2021 – 2022</div>
-            <div class="footprint-item">
-              <div class="loc">🇦🇷 Argentina · 🇨🇱 Chile</div>
-              <div class="role">Regional Operations Partner, LATAM</div>
-              <div class="clients">Telefonica HISPAM — $100M MGS renewal (TEF Peru/Chile/Arg)</div>
-            </div>
-          </div>
-
-          <div class="footprint-group">
-            <div class="footprint-period">2022 – 2023</div>
-            <div class="footprint-item">
-              <div class="loc">🇮🇳 Gurugram, India</div>
-              <div class="role">Regional Operations Partner, iMEA</div>
-              <div class="clients">Airtel, VIL, TSA, H3G Ireland, H3G UK — H3G IR stabilization, non-DOX MGS, revenue $30M → $85M</div>
-            </div>
-            <div class="footprint-item">
-              <div class="loc">🇿🇦 South Africa</div>
-              <div class="role">Regional Ops Partner, iMEA</div>
-              <div class="clients">TSA</div>
-            </div>
-            <div class="footprint-item">
-              <div class="loc">🇲🇽 Mexico · 🇨🇾 Cyprus</div>
-              <div class="role">24×7 delivery centers</div>
-              <div class="clients">TEF support · Global delivery</div>
-            </div>
-          </div>
-
-          <div class="footprint-group">
-            <div class="footprint-period">2022 – 2025</div>
-            <div class="footprint-item">
-              <div class="loc">🇮🇪 Ireland</div>
-              <div class="role">Stabilization & growth, then EMEA</div>
-              <div class="clients">H3G Ireland — Single IT Vendor path</div>
-            </div>
-            <div class="footprint-item">
-              <div class="loc">🇬🇧 Reading, UK</div>
-              <div class="role">Engineering Services Leader → Client Services Executive</div>
-              <div class="clients">H3G UK — $124M Venus deal (5 yrs), Cloud, IT, Network, Security, EUC, DevSecOps, MGS</div>
-            </div>
-          </div>
-        </div>
       </div>
-      <p class="map-legend">
-        <span class="dot gold"></span> Location
-        <span class="dot flight"></span> Flight (travel)
-        <span class="dot reloc"></span> Relocation
-        <span class="dot repat"></span> Repatriation
-      </p>
     </section>
 
-    <!-- Career timeline -->
+    <!-- Career timeline (merged footprint + roles) -->
     <section>
       <h2>Career timeline — roles, geography & clients</h2>
+      <p class="timeline-legend">
+        <span><span class="dot gold"></span> Location</span>
+        <span><span class="dot flight"></span> Flight (travel)</span>
+        <span><span class="dot reloc"></span> Relocation</span>
+        <span><span class="dot repat"></span> Repatriation</span>
+      </p>
       <div class="timeline">
         <div class="timeline-item current">
           <div class="timeline-year">2023 – 2025</div>
           <div class="timeline-role">Amdocs · Engineering Services Leader → Client Services Executive</div>
           <div class="timeline-geo">🇬🇧 UK (Reading) · 🇮🇪 Ireland · EMEA</div>
-          <div class="timeline-clients"><strong>H3G UK & Ireland</strong> — $124M Venus deal (5 yrs), Single IT Vendor (Cloud, IT, Network, Security, EUC), DevSecOps, MGS</div>
+          <div class="timeline-summary"><strong>H3G UK &amp; Ireland</strong> — $144M deals (5 yrs), Vendor consolidation deals</div>
+          <ul class="timeline-sites">
+            <li><span class="site-loc">🇮🇪 Ireland</span> — <span class="site-detail">Stabilization &amp; growth, then EMEA · H3G Ireland — Single IT Vendor path $20M BlueSky deal (5 yrs), CloudOps, ITIL Service mgmt, Security, DevSecOps, MGS.</span></li>
+            <li><span class="site-loc">🇬🇧 Reading, UK</span> — <span class="site-detail">Engineering Services Leader → Client Services Executive · H3G UK — $124M Venus deal (5 yrs), Cloud, IT, Network, Security, EUC, DevSecOps, MGS. Also built Dev pipeline for OSS tools and 70+ applications Solution, Dev, Deployment CR/ER team with $3M annual pure revenue leveraging existing MGS teams.</span></li>
+          </ul>
+          <div class="timeline-mobility">
+            <span class="tag reloc"><span class="dot"></span> Relocation: Gurugram → Reading, UK</span>
+            <span class="tag flight"><span class="dot"></span> Travel: UK ↔ Ireland</span>
+            <span class="tag repat"><span class="dot"></span> Repatriation: UK → Gurugram (Sep 2025)</span>
+          </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-year">2022 – 2023</div>
           <div class="timeline-role">Amdocs · Regional Operations Partner</div>
-          <div class="timeline-geo">🇮🇳 India (Gurugram) · iMEA</div>
-          <div class="timeline-clients"><strong>Airtel, VIL, TSA, H3G Ireland, H3G UK</strong> — H3G IR stabilization, non-DOX MGS from TechM, revenue $30M → $85M</div>
+          <div class="timeline-summary"><span class="site-loc">🇮🇳 India (Gurugram) · iMEA</span> — Airtel, VIL, TSA, H3G Ireland, H3G UK — H3G IR stabilization, non-DOX MGS from TechM, revenue $30M → $65M</div>
+          <ul class="timeline-sites">
+            <li><span class="site-loc">🇮🇳 Gurugram</span> — <span class="site-detail">Offshore teams for iMEA and Airtel, VIL onshore teams</span></li>
+            <li><span class="site-loc">🇲🇽 Mexico · 🇨🇾 Cyprus</span> — <span class="site-detail">24×7 delivery centers · TEF support · Global delivery</span></li>
+          </ul>
+          <div class="timeline-mobility">
+            <span class="tag repat"><span class="dot"></span> Repatriation: Lima → Gurugram (2021)</span>
+            <span class="tag loc"><span class="dot"></span> Base: Gurugram, India</span>
+          </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-year">2021 – 2022</div>
           <div class="timeline-role">Amdocs · Regional Operations Partner</div>
           <div class="timeline-geo">🇦🇷 Argentina · 🇨🇱 Chile · LATAM</div>
-          <div class="timeline-clients"><strong>Telefonica HISPAM</strong> — $100M MGS renewal (TEF Peru/Chile/Arg), replicated Peru model</div>
+          <div class="timeline-summary"><strong>Telefonica HISPAM</strong> — $100M MGS renewal (TEF Peru/Chile/Arg), replicated Peru model</div>
+          <div class="timeline-mobility">
+            <span class="tag flight"><span class="dot"></span> Travel: Lima → Chile &amp; Argentina</span>
+            <span class="tag loc"><span class="dot"></span> LATAM regional coverage</span>
+          </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-year">2018 – 2021</div>
-          <div class="timeline-role">Amdocs · Production Manager → Operations Partner Director</div>
-          <div class="timeline-geo">🇵🇪 Peru (Lima) · LATAM</div>
-          <div class="timeline-clients"><strong>Telefonica Peru</strong> — Peru as MGS role model for LATAM, post-transformation operations</div>
+          <div class="timeline-year">2015 – 2021</div>
+          <div class="timeline-role">Amdocs · Software Testing Manager / Site Partner → Production Mgr → Ops Partner Director</div>
+          <div class="timeline-geo">🇵🇪 Lima, Peru · LATAM</div>
+          <div class="timeline-summary"><strong>Telefonica Peru</strong> — End-to-end transformation; Peru as MGS role model for LATAM</div>
+          <div class="timeline-mobility">
+            <span class="tag reloc"><span class="dot"></span> Relocation: India → Lima, Peru (2015)</span>
+            <span class="tag loc"><span class="dot"></span> Base: Lima, Peru</span>
+          </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-year">2015 – 2018</div>
-          <div class="timeline-role">Amdocs · Software Testing Manager → Site Partner</div>
-          <div class="timeline-geo">🇵🇪 Peru (Lima)</div>
-          <div class="timeline-clients"><strong>Telefonica Peru</strong> — End-to-end transformation leadership</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2010 – 2015</div>
-          <div class="timeline-role">Amdocs · Senior SME → Group Lead</div>
-          <div class="timeline-geo">🇮🇳 Pune / Gurugram · 🇺🇸 US · 🇮🇩 Indonesia · 🇧🇷 Brazil</div>
-          <div class="timeline-clients"><strong>Clearwire, TKS Indonesia, ATT Mobility, NET Brazil</strong> — CRM, OMS, Billing, OCS, TC7.5</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2009 – 2010</div>
-          <div class="timeline-role">Software Engineer (SME)</div>
-          <div class="timeline-geo">🇮🇳 India (Mysore, Pune)</div>
-          <div class="timeline-clients"><strong>Infosys</strong> — Telstra transformation CAT (with Accenture), Mainframes</div>
+          <div class="timeline-year">2009 – 2015</div>
+          <div class="timeline-role">Infosys · Software Engineer → Amdocs · Senior SME → Group Lead</div>
+          <div class="timeline-geo">🇮🇳 Pune · 🇺🇸 US · 🇮🇩 Indonesia · 🇧🇷 Brazil</div>
+          <div class="timeline-summary"><strong>Infosys, Clearwire, TKS Indonesia, ATT Mobility, NET Brazil</strong> — Telstra CAT, CRM, OMS, Billing, OCS, TC7.5</div>
+          <ul class="timeline-sites">
+            <li><span class="site-loc">🇮🇳 Pune, India</span> — <span class="site-detail">Software Engineer (Infosys) → Senior SME / Group Lead (Amdocs) · Telstra (CAT with Accenture), Mainframes · Clearwire, TKS Indonesia, ATT Mobility, NET Brazil — CRM, OMS, Billing, OCS</span></li>
+            <li><span class="site-loc">🇺🇸 USA</span> — <span class="site-detail">Senior SME (remote / engagement) · Clearwire, ATT Mobility</span></li>
+            <li><span class="site-loc">🇮🇩 Indonesia</span> — <span class="site-detail">Senior SME · TKS Indonesia</span></li>
+            <li><span class="site-loc">🇧🇷 Brazil</span> — <span class="site-detail">Group Lead, NET Brazil transformation · NET Brazil</span></li>
+          </ul>
+          <div class="timeline-mobility">
+            <span class="tag loc"><span class="dot"></span> Base: Pune, India</span>
+            <span class="tag flight"><span class="dot"></span> Travel: Pune → Indonesia &amp; USA (Dallas)</span>
+            <span class="tag flight"><span class="dot"></span> Travel: Gurugram → São Paulo (Brazil engagement)</span>
+          </div>
         </div>
       </div>
     </section>
@@ -634,7 +654,7 @@
         </div>
         <div class="contact-item">
           <div class="label">Email</div>
-          <div class="value"><a href="mailto:gaurav.chaudhary@example.com">Email Me</a></div>
+          <div class="value"><a href="mailto:gauravch86@outlook.com">Email Me</a></div>
         </div>
       </div>
     </section>
