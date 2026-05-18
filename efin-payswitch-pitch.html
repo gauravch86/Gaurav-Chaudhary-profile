@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DwarkaGlobal PaySwitch — E-Fin / MLB Securities Partnership Pitch</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --navy: #0b1f3a;
+      --navy-mid: #14325c;
+      --gold: #c9a227;
+      --gold-light: #e8d48b;
+      --teal: #0d9488;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #dc2626;
+      --success: #059669;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, #1a4d6e 100%);
+      color: #fff;
+      padding: 3.5rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 85% 20%, rgba(201, 162, 39, 0.15), transparent 45%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .badge.gold { background: rgba(201,162,39,0.25); border-color: var(--gold); color: var(--gold-light); }
+
+    .hero h1 {
+      font-size: clamp(1.85rem, 4vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span { color: var(--gold-light); }
+
+    .hero .lead {
+      font-size: 1.15rem;
+      max-width: 720px;
+      opacity: 0.92;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .hero-meta div {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+    }
+
+    .hero-meta strong { display: block; font-size: 1.35rem; color: var(--gold-light); }
+    .hero-meta span { font-size: 0.85rem; opacity: 0.85; }
+
+    nav.sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      overflow-x: auto;
+    }
+
+    nav.sticky-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+
+    nav.sticky-nav a {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.55rem 0.85rem;
+      border-radius: 8px;
+    }
+
+    nav.sticky-nav a:hover { background: var(--bg); color: var(--teal); }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    section { margin-bottom: 3.5rem; scroll-margin-top: 4.5rem; }
+
+    h2 {
+      font-size: 1.65rem;
+      color: var(--navy);
+      margin-bottom: 0.35rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--gold);
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--navy-mid);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      margin: 0.75rem 0 1.5rem;
+      max-width: 820px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.25rem;
+    }
+
+    .stat-card .num {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .stat-card .num.teal { color: var(--teal); }
+    .stat-card .num.gold { color: #b8860b; }
+
+    .stat-card .lbl {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--navy);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    .highlight-row td { background: #ecfdf5 !important; font-weight: 600; }
+
+    .compare-bad { color: var(--danger); }
+    .compare-good { color: var(--success); font-weight: 600; }
+
+    ul.checklist { list-style: none; margin: 0.5rem 0; }
+    ul.checklist li {
+      padding: 0.45rem 0 0.45rem 1.75rem;
+      position: relative;
+    }
+    ul.checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .callout {
+      border-left: 4px solid var(--gold);
+      background: #fffbeb;
+      padding: 1rem 1.25rem;
+      border-radius: 0 10px 10px 0;
+      margin: 1rem 0;
+    }
+
+    .callout.warn {
+      border-left-color: #f59e0b;
+      background: #fffbeb;
+    }
+
+    .callout.info {
+      border-left-color: var(--teal);
+      background: #f0fdfa;
+    }
+
+    .mermaid-wrap {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .journey-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .journey-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-left: 2px solid var(--border);
+      margin-left: 23px;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .journey-step:last-child { border-left-color: transparent; }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-left: -49px;
+      flex-shrink: 0;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .pillar {
+      border-top: 4px solid var(--teal);
+      padding-top: 1rem;
+    }
+
+    .pillar h4 { color: var(--navy); margin-bottom: 0.5rem; }
+
+    footer.cta {
+      background: var(--navy);
+      color: #fff;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    footer.cta h2 { color: #fff; border-color: var(--gold); }
+    footer.cta p { opacity: 0.9; max-width: 640px; margin: 1rem auto; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+
+    .source-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .role-card {
+      border-radius: 12px;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+    }
+
+    .role-card.bank { border-top: 4px solid var(--navy); }
+    .role-card.tech { border-top: 4px solid var(--teal); }
+    .role-card.merchant { border-top: 4px solid var(--gold); }
+
+    .role-card h4 {
+      font-size: 0.95rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .role-card .who {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .compliance-list {
+      margin: 0.5rem 0 0 1.1rem;
+      font-size: 0.9rem;
+    }
+
+    .compliance-list li { margin-bottom: 0.35rem; }
+
+    @media print {
+      nav.sticky-nav { display: none; }
+      .hero { padding: 2rem; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="badge-row">
+      <span class="badge gold">Confidential — Partnership Pitch</span>
+      <span class="badge">DwarkaGlobal Private Limited</span>
+      <span class="badge">NPCI / RBI Rails</span>
+    </div>
+    <h1>Replace PayU. Own the rail.<br><span>DwarkaGlobal PaySwitch</span> for E-Fin</h1>
+    <p class="lead">
+      A direct UPI / IMPS payment infrastructure pitch for <strong>MLB Securities</strong> and its
+      <strong>E-Fin</strong> payday lending platform — cutting aggregator fees, improving collection success,
+      and accelerating capital velocity on your high-churn loan book.
+    </p>
+    <div class="hero-meta">
+      <div>
+        <strong>₹113 Cr</strong>
+        <span>Portfolio scale (AUM context)</span>
+      </div>
+      <div>
+        <strong>₹600–700 Cr</strong>
+        <span>Est. annual disbursal + collection churn</span>
+      </div>
+      <div>
+        <strong>20%</strong>
+        <span>Payment processing cost reduction vs. PayU</span>
+      </div>
+      <div>
+        <strong>10,000+ TPS</strong>
+        <span>PaySwitch design capacity (UPI rail)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="sticky-nav" aria-label="Sections">
+  <ul>
+    <li><a href="#opportunity">Opportunity</a></li>
+    <li><a href="#client">E-Fin / MLB</a></li>
+    <li><a href="#payu">PayU Today</a></li>
+    <li><a href="#solution">PaySwitch</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#journeys">Journeys</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#value">Why Switch</a></li>
+    <li><a href="#compliance">RBI / NPCI</a></li>
+    <li><a href="#banks">Two-Bank Model</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#next">Next Steps</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+
+  <section id="opportunity">
+    <h2>Executive Summary</h2>
+    <p class="section-lead">
+      Traditional payment gateways like PayU are software aggregators layered on bank switches.
+      DwarkaGlobal has built <strong>DwarkaSwitch</strong> — bank-grade NPCI infrastructure (UPI, IMPS, EFT) —
+      and is productizing it as <strong>PaySwitch</strong>: a fintech-facing merchant orchestration layer
+      purpose-built for high-volume lenders like E-Fin.
+    </p>
+    <div class="card">
+      <p><strong>The ask:</strong> Partner with DwarkaGlobal to migrate E-Fin’s disbursals, EMI collections,
+      penny-drop verification, and reconciliation off PayU onto PaySwitch — with a hybrid sponsor-bank model
+      that is regulator-aware and commercially disruptive.</p>
+      <ul class="checklist" style="margin-top: 1rem;">
+        <li>Lower per-transaction cost on micro-EMIs and high-frequency payouts</li>
+        <li>Fewer hops → higher collection success (target +3–5% on UPI intent flows)</li>
+        <li>T+0 settlement routing into nodal / pool accounts (capital recycling same day)</li>
+        <li>White-label checkout (borrower sees E-Fin, not a generic PG brand)</li>
+        <li>Merchant dashboard, webhooks, MIS, and automated reconciliation</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="client">
+    <h2>Who We Are Pitching To</h2>
+    <p class="section-lead">
+      Target: <a href="https://mlbsecurities.com/" target="_blank" rel="noopener">MLB Securities</a>
+      (MLB Capital / MLB Securities Pvt Ltd) — equity broking, depository, and wealth services —
+      operating <strong>E-Fin</strong>, India’s fast-growing salary-linked payday lending platform.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>MLB Securities — Group Context</h3>
+        <p>Unlike a pure NBFC lending book, MLB’s economics blend <strong>brokerage velocity</strong>,
+        DP fees, distribution, and market-linked activity. Revenue of ~₹49 Cr against ~₹113 Cr AUM
+        signals highly active client capital — not passive 1–2% wealth fees alone.</p>
+        <ul class="checklist">
+          <li>Brokerage, F&amp;O, margin funding, transaction charges</li>
+          <li>Fee-based, lower balance-sheet risk vs. traditional NBFC lending</li>
+          <li>Revenue sensitivity to market volumes (bull vs. bear cycles)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>E-Fin — Payment-Heavy Digital Lender</h3>
+        <p><a href="https://mlbsecurities.com/" target="_blank" rel="noopener">E-Fin</a> offers unsecured,
+        short-term, salary-linked loans (up to ₹1L, minutes-fast disbursal, 100% digital KYC).
+        Payday lending implies <strong>massive payment API churn</strong>: penny drops, IMPS/UPI payouts,
+        UPI intent collections, eNACH/card fallbacks, and real-time ledger updates.</p>
+        <ul class="checklist">
+          <li>30–60 day average loan cycles → ~6× annual book churn</li>
+          <li>Two critical flows: <em>Out</em> (disbursal) and <em>In</em> (EMI repayment)</li>
+          <li>Failed collections = direct revenue leakage + ops cost</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 1rem;">
+      <div class="card stat-card">
+        <div class="num">₹113 Cr</div>
+        <div class="lbl">Active loan / portfolio scale referenced in analysis</div>
+      </div>
+      <div class="card stat-card">
+        <div class="num teal">~6×</div>
+        <div class="lbl">Annual churn on short-cycle payday book</div>
+      </div>
+      <div class="card stat-card">
+        <div class="num gold">₹600–700 Cr</div>
+        <div class="lbl">Implied annual money movement (disburse + collect)</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="payu">
+    <h2>What PayU Likely Earns From E-Fin Today</h2>
+    <p class="section-lead">
+      PayU India typically monetizes fintech lenders through platform fees (UPI intent / QR / API),
+      MDR on cards &amp; netbanking, and per-payout IMPS/UPI charges — not just “zero MDR UPI.”
+    </p>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Flow</th>
+            <th>Typical PayU Model</th>
+            <th>Why It Hurts E-Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>EMI collection (UPI intent / dynamic QR)</strong></td>
+            <td class="compare-bad">Per-transaction platform fee on successful API flows</td>
+            <td>Micro-EMIs × high volume = fee leakage at scale</td>
+          </tr>
+          <tr>
+            <td><strong>Repayment fallback (cards / netbanking / eNACH)</strong></td>
+            <td class="compare-bad">MDR on successful card / netbanking / mandate transactions</td>
+            <td>Expensive backup rail when UPI or mandate fails</td>
+          </tr>
+          <tr>
+            <td><strong>Loan disbursal (IMPS / UPI payout)</strong></td>
+            <td class="compare-bad">Per-payout fee on successful IMPS / UPI disbursals</td>
+            <td>Every approved borrower hits this on onboarding fulfillment</td>
+          </tr>
+          <tr>
+            <td><strong>Bank verify (penny drop)</strong></td>
+            <td class="compare-bad">Per-check verification fee</td>
+            <td>Acquisition funnel cost before first disbursal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Estimated PayU economics from E-Fin:</strong> meaningful recurring platform, MDR, and payout fees
+      across high annual processing volume (combined disbursals + collections, API + payout fees).
+      <br><br>
+      <em>Strategic point for MLB leadership:</em> this is not only a vendor cost line — slower payouts and
+      failed collections directly reduce lending ROI and customer retention.
+    </div>
+  </section>
+
+  <section id="solution">
+    <h2>PaySwitch — Switch-Owned Fintech PG</h2>
+    <p class="section-lead">
+      PaySwitch is a thin, robust <strong>merchant orchestration layer</strong> on top of DwarkaGlobal’s
+      certified-ready <strong>DwarkaSwitch</strong> core (ISO 8583 / NPCI JSON, encryption, reversals,
+      idempotency, webhook engine) — the same engine positioned for cooperative and commercial bank rails.
+    </p>
+
+    <div class="mermaid-wrap">
+      <pre class="mermaid">
+flowchart LR
+  subgraph merchant["E-Fin App / Backend"]
+    APP[Loan App &amp; Ledger]
+  end
+  subgraph payswitch["DwarkaGlobal PaySwitch"]
+    API[REST APIs &amp; Mobile SDK]
+    WH[Webhook / Retry Engine]
+    DASH[Merchant Dashboard &amp; MIS]
+    RECON[Reconciliation Engine]
+  end
+  subgraph core["DwarkaSwitch Core"]
+    UPI[UPI Service]
+    IMPS[IMPS Service]
+    RT[Router &amp; ISO Engine]
+  end
+  subgraph banks["Sponsor Banks"]
+    COOP[Cooperative Bank<br/>Low-risk flows]
+    COMM[Commercial Bank Nodal<br/>High-volume settlement]
+  end
+  NPCI[NPCI Network]
+
+  APP --> API
+  API --> UPI & IMPS
+  API --> WH
+  WH --> APP
+  DASH --> RECON
+  UPI & IMPS --> RT
+  RT --> COOP & COMM
+  COOP & COMM --> NPCI
+      </pre>
+    </div>
+
+    <div class="pillars">
+      <div class="card pillar">
+        <h4>Merchant APIs &amp; SDKs</h4>
+        <p>Collect, payout, verify, refund — REST + Android/iOS SDKs mapping directly into switch-native messages.</p>
+      </div>
+      <div class="card pillar">
+        <h4>Real-time status</h4>
+        <p>Guaranteed webhook retries so E-Fin’s ledger updates in milliseconds — no false late fees or legal triggers.</p>
+      </div>
+      <div class="card pillar">
+        <h4>Ops dashboard</h4>
+        <p>Daily collection vs. disbursal volumes, stuck txn investigation, settlement file downloads.</p>
+      </div>
+      <div class="card pillar">
+        <h4>Compliance-ready core</h4>
+        <p>Audit trails (10-year design), TLS 1.2+, HSM key plan, India data localization, NPCI/RBI alignment path.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="architecture">
+    <h2>Technical Foundation (DwarkaSwitch)</h2>
+    <p class="section-lead">
+      Built from the <strong>NPCI-Switch</strong> enterprise codebase — multi-rail, high-throughput,
+      microservices architecture with external API gateway, Kafka, PostgreSQL, Redis, and Kubernetes.
+    </p>
+
+    <div class="grid-3">
+      <div class="card stat-card">
+        <div class="num teal">10,000+</div>
+        <div class="lbl">UPI TPS design target</div>
+      </div>
+      <div class="card stat-card">
+        <div class="num teal">5,000+</div>
+        <div class="lbl">IMPS TPS design target</div>
+      </div>
+      <div class="card stat-card">
+        <div class="num">99.99%</div>
+        <div class="lbl">Availability SLO</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Stack Highlights</h3>
+      <ul class="checklist">
+        <li><strong>Rails:</strong> UPI (JSON), IMPS (ISO 8583:1987), EFT (NEFT/RTGS path)</li>
+        <li><strong>Latency:</strong> &lt; 2s end-to-end UPI; P95 IMPS &lt; 3s (per design SLOs)</li>
+        <li><strong>Gateway:</strong> Versioned APIs, OAuth/JWT, rate limits, canary deploys</li>
+        <li><strong>Correctness:</strong> Idempotency, outbox pattern, reversal handling</li>
+        <li><strong>Security:</strong> PCI-DSS / ISO 27001 alignment path, CERT-In audit readiness</li>
+        <li><strong>Certification:</strong> Parallel 12-week multi-rail NPCI readiness programme (UPI ~40%, IMPS ~35%, EFT ~25%)</li>
+      </ul>
+    </div>
+
+    <div class="mermaid-wrap">
+      <pre class="mermaid">
+sequenceDiagram
+  participant User as Borrower
+  participant EFin as E-Fin App
+  participant PS as PaySwitch API
+  participant SW as DwarkaSwitch
+  participant Bank as Sponsor Bank
+  participant NPCI as NPCI
+
+  Note over User,NPCI: Disbursal (payout)
+  EFin->>PS: POST /payouts (loan approved)
+  PS->>SW: IMPS / UPI payout message
+  SW->>Bank: Core banking / clearing
+  Bank->>NPCI: Settlement rail
+  NPCI-->>Bank: ACK
+  Bank-->>SW: Status
+  SW-->>PS: Success / fail
+  PS-->>EFin: Webhook (ledger credit)
+
+  Note over User,NPCI: Collection (EMI)
+  EFin->>PS: POST /collect (UPI intent)
+  PS-->>User: Deep link / QR
+  User->>NPCI: UPI PIN authorize
+  NPCI-->>Bank: Collect
+  Bank-->>SW: Posting
+  SW-->>PS: Confirmed
+  PS-->>EFin: Webhook (loan closed)
+      </pre>
+    </div>
+  </section>
+
+  <section id="journeys">
+    <h2>Core Payment User Journeys</h2>
+    <p class="section-lead">E-Fin’s product is two synchronized payment cycles — we optimize both.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Cycle 1 — Disbursal (E-Fin → Borrower)</h3>
+        <div class="journey-steps">
+          <div class="journey-step">
+            <span class="step-num">1</span>
+            <div><strong>Apply &amp; KYC</strong> — PAN, Aadhaar, salary proof in-app.</div>
+          </div>
+          <div class="journey-step">
+            <span class="step-num">2</span>
+            <div><strong>Penny drop</strong> — PaySwitch verify API confirms account name match.</div>
+          </div>
+          <div class="journey-step">
+            <span class="step-num">3</span>
+            <div><strong>Instant payout</strong> — IMPS / UPI payout to borrower account (e.g. ₹20,000).</div>
+          </div>
+          <div class="journey-step">
+            <span class="step-num">4</span>
+            <div><strong>Webhook</strong> — Ledger marks disbursed; collections schedule activated.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Cycle 2 — Repayment (Borrower → E-Fin)</h3>
+        <div class="journey-steps">
+          <div class="journey-step">
+            <span class="step-num">1</span>
+            <div><strong>Due date trigger</strong> — Push / WhatsApp with pay link.</div>
+          </div>
+          <div class="journey-step">
+            <span class="step-num">2</span>
+            <div><strong>White-label checkout</strong> — E-Fin branded PaySwitch SDK screen.</div>
+          </div>
+          <div class="journey-step">
+            <span class="step-num">3</span>
+            <div><strong>UPI intent</strong> — Deep link to PhonePe / GPay / Paytm.</div>
+          </div>
+          <div class="journey-step">
+            <span class="step-num">4</span>
+            <div><strong>Real-time settlement</strong> — Webhook closes loan; penalties suppressed correctly.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>Phase 2 holy grail:</strong> UPI AutoPay / mandate integration on PaySwitch for automated
+      EMI debit — the highest-impact collections feature for payday lenders (roadmap item post go-live).
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2>Commercial Model — Undercut PayU Structurally</h2>
+    <p class="section-lead">
+      Because DwarkaGlobal owns the switch layer, variable cost per transaction is dominated by
+      sponsor-bank clearing — not aggregator margin stack. Proposed flagship pricing for E-Fin:
+    </p>
+
+    <div class="card" style="overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Payment Flow</th>
+            <th>PayU (Est.)</th>
+            <th>PaySwitch Offer</th>
+            <th>E-Fin Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Loan disbursal (IMPS / UPI payout)</td>
+            <td class="compare-bad">X</td>
+            <td class="compare-good">0.8X</td>
+            <td><strong>20% reduction</strong> in fulfillment cost</td>
+          </tr>
+          <tr>
+            <td>EMI collection (UPI intent / QR)</td>
+            <td class="compare-bad">X</td>
+            <td class="compare-good">0.8X</td>
+            <td><strong>20% reduction</strong> in collection cost</td>
+          </tr>
+          <tr>
+            <td>Bank account verify (penny drop)</td>
+            <td class="compare-bad">X</td>
+            <td class="compare-good">0.8X</td>
+            <td><strong>20% reduction</strong> in verification cost</td>
+          </tr>
+          <tr class="highlight-row">
+            <td colspan="2"><strong>Blended payment processing cost (all flows)</strong></td>
+            <td class="compare-good">0.8X vs. PayU</td>
+            <td><strong>20% reduction</strong> in total PG cost (volume-dependent; excludes uplift from higher success rates)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>ROI beyond fees:</strong> A 3–5% improvement in collection success on a churning
+      ₹600+ Cr flow can exceed pure PG savings — fewer NPA triggers, less manual collections ops,
+      and faster same-day redeployment of repaid principal (T+0 vs. aggregator T+1/T+2).
+    </div>
+  </section>
+
+  <section id="value">
+    <h2>Why E-Fin Should Switch — CTO / CFO Narrative</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>1. Eliminate the middleman hop</h3>
+        <p>PayU routes through shared, multi-tenant bank APIs. Under congestion, your borrowers’ EMIs fail →
+        overdue loans. PaySwitch routes through a <strong>dedicated switch + sponsor bank path</strong>,
+        improving success rates structurally.</p>
+      </div>
+      <div class="card">
+        <h3>2. True instant settlement (T+0)</h3>
+        <p>Aggregators often settle T+1/T+2. For ₹113 Cr AUM with ~6× churn, <strong>capital velocity is the product</strong>.
+        PaySwitch targets real-time pool / nodal crediting so the same rupee can be re-lent the same day.</p>
+      </div>
+      <div class="card">
+        <h3>3. White-label trust</h3>
+        <p>Borrowers stay inside the E-Fin ecosystem — custom VPA / branding (e.g. <code>user@efin</code>)
+        instead of a generic third-party checkout experience.</p>
+      </div>
+      <div class="card">
+        <h3>4. Operational control</h3>
+        <p>Auto-retry on failed intents, direct status inquiry, manual refund triggers, and downloadable
+        MIS for finance — without ticket queues to an aggregator.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="compliance">
+    <h2>RBI &amp; NPCI Compliance — UPI Gateway Reality</h2>
+    <p class="section-lead">
+      Operating a UPI payments gateway requires parallel tracks: <strong>RBI regulatory authorization</strong>
+      and <strong>NPCI technical ecosystem onboarding</strong>. In UPI, a direct PSP is strictly a licensed bank;
+      non-bank players onboard as <strong>Payment Aggregators (PAs)</strong>, <strong>TPAPs</strong>, or
+      bank-sponsored technology — which is exactly how PaySwitch and E-Fin are designed to interoperate.
+    </p>
+
+    <div class="callout info">
+      <strong>Pitch clarity for MLB / E-Fin leadership:</strong> E-Fin cannot be a direct PSP on NPCI rails.
+      PaySwitch does not ask you to become one. We provide bank-sponsored infrastructure, compliance-ready
+      orchestration, and merchant APIs — while your sponsor PSP bank remains the regulated bridge to the UPI switch.
+    </div>
+
+    <div class="mermaid-wrap">
+      <pre class="mermaid">
+flowchart TB
+  subgraph participants["UPI ecosystem roles"]
+    EFin["E-Fin / MLB App<br/>(Merchant / TPAP-facing)"]
+    PS["DwarkaGlobal PaySwitch<br/>(Orchestration + PG APIs)"]
+    SW["DwarkaSwitch<br/>(UPI / IMPS switch core)"]
+    PSP["PSP Sponsor Bank<br/>(Licensed bank only)"]
+    NPCI["NPCI UPI Switch"]
+  end
+  EFin -->|"Collect / Payout / Verify APIs"| PS
+  PS --> SW
+  SW --> PSP
+  PSP --> NPCI
+      </pre>
+    </div>
+
+    <div class="role-grid">
+      <div class="role-card bank">
+        <div class="who">Licensed bank only</div>
+        <h4>Payment Service Provider (PSP)</h4>
+        <p>Holds settlement accounts, clearing liquidity, direct NPCI switch access. DwarkaGlobal partners with PSP sponsor banks — not a substitute for them.</p>
+      </div>
+      <div class="role-card tech">
+        <div class="who">DwarkaGlobal</div>
+        <h4>PaySwitch + DwarkaSwitch</h4>
+        <p>Technology switch and merchant orchestration: APIs, webhooks, UAT-ready rails, HSM-aligned security, reconciliation — under bank sponsorship.</p>
+      </div>
+      <div class="role-card merchant">
+        <div class="who">MLB / E-Fin</div>
+        <h4>Merchant / ecosystem participant</h4>
+        <p>Lending app using PG for disbursals and collections. Participates via TPAP/PA pathways through sponsor bank — same structural model as PayU today, with fewer hops.</p>
+      </div>
+    </div>
+
+    <h3>1. RBI — Regulatory &amp; financial mandates</h3>
+    <p class="section-lead">Non-bank fintechs providing payment gateway services must operate as regulated intermediaries under the Payment and Settlement Systems Act, 2007.</p>
+    <div class="card">
+      <ul class="compliance-list">
+        <li><strong>Payment Aggregator (PA) license:</strong> Formal RBI authorization required to operate as a PA for merchant payment aggregation.</li>
+        <li><strong>Net worth:</strong> Minimum <strong>₹15 crore</strong> at application; scale to <strong>₹25 crore</strong> within the regulatory timeline and maintain continuously.</li>
+        <li><strong>Data localisation:</strong> All payment data (txn logs, credentials, UPI metadata) stored <strong>only in India</strong> — no overseas mirroring (DwarkaSwitch architecture: India-only processing &amp; storage).</li>
+        <li><strong>Escrow account:</strong> Scheduled commercial bank escrow to pool and route merchant funds, segregated from corporate capital.</li>
+        <li><strong>Fit &amp; proper:</strong> Promoters and directors must meet RBI governance and integrity standards.</li>
+      </ul>
+    </div>
+
+    <h3>2. NPCI — Architecture &amp; ecosystem onboarding</h3>
+    <p class="section-lead">Non-banks cannot connect directly to the central UPI switch; onboarding is always multi-party.</p>
+    <div class="grid-2">
+      <div class="card">
+        <ul class="checklist">
+          <li><strong>Sponsor bank partnership:</strong> One or more NPCI-approved PSP sponsor banks underwrite traffic and settlement.</li>
+          <li><strong>TPAP registration:</strong> If the gateway uses a dedicated merchant/consumer app checkout (E-Fin’s case), TPAP licensing via sponsor bank with tri-partite bank–NPCI–provider agreement.</li>
+          <li><strong>Volume caps:</strong> Consumer-facing apps must comply with NPCI market-share caps (e.g. ~30% UPI volume threshold) to limit concentration risk.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>PaySwitch alignment</h4>
+        <p>Our <a href="#banks">two-bank hybrid model</a> maps cooperative bank flows (verify, micro-payout) to inclusion rails and routes high-volume collect/payout settlement through a scheduled commercial bank nodal/escrow structure — the pattern NPCI expects for fintech-scale merchants.</p>
+      </div>
+    </div>
+
+    <h3>3. Technical, security &amp; certification</h3>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Requirement</th>
+            <th>Regulator expectation</th>
+            <th>PaySwitch / DwarkaSwitch status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>NPCI UAT</strong></td>
+            <td>Collect, Intent, Dynamic/Static QR — pass staging UAT before production</td>
+            <td class="compare-good">Multi-rail cert readiness programme (UPI, IMPS, EFT parallel tracks)</td>
+          </tr>
+          <tr>
+            <td><strong>Encryption &amp; HSM</strong></td>
+            <td>Strong asymmetric encryption; HSM for key gen, storage, signing</td>
+            <td class="compare-good">HSM plan documented; TLS 1.2+; secrets out of code</td>
+          </tr>
+          <tr>
+            <td><strong>VAPT / IS audit</strong></td>
+            <td>CERT-In empanelled auditor; annual reports to sponsor bank &amp; NPCI</td>
+            <td class="compare-good">CERT-In audit path scoped in 12-week readiness plan</td>
+          </tr>
+          <tr>
+            <td><strong>Audit trail</strong></td>
+            <td>Immutable logs, retention, incident response</td>
+            <td class="compare-good">10-year retention design; hash-chained audit logs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>4. Merchant risk &amp; operations</h3>
+    <div class="grid-2">
+      <div class="card">
+        <ul class="checklist">
+          <li><strong>KYB / KYC:</strong> CoI, PAN, GSTIN, Ultimate Beneficial Owner (UBO) verification for AML compliance.</li>
+          <li><strong>MCC mapping:</strong> Precise Merchant Category Codes for limits and prohibited-category controls.</li>
+          <li><strong>ODR:</strong> Real-time grievance redressal (UPIOPS/ODR) — failed txn reversal, dispute TAT automation.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Included in PaySwitch merchant layer</h4>
+        <ul class="checklist">
+          <li>Merchant dashboard + downloadable MIS for finance reconciliation</li>
+          <li>Webhook-driven status for instant failed-payment handling (critical for E-Fin EMIs)</li>
+          <li>Refund / stuck-txn investigation workflows for ops teams</li>
+          <li>Roadmap: full UPI ODR integration with NPCI frameworks</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Why an NBFC / lender cannot be a direct PSP — and what E-Fin does instead</h3>
+    <div class="card">
+      <p><strong>No — an NBFC cannot be a direct UPI PSP.</strong> RBI/NPCI reserve the PSP role for banking institutions that hold settlement core accounts and clearing-house liquidity. NBFCs are non-banks and cannot operate demand deposit accounts or clear net settlements on interbank rails.</p>
+      <p style="margin-top: 0.75rem;"><strong>How E-Fin participates today (and with PaySwitch):</strong></p>
+      <ul class="compliance-list">
+        <li><strong>As TPAP / app provider:</strong> E-Fin’s lending app offers UPI checkout and payouts, but all switch traffic routes through an approved <strong>sponsor PSP bank</strong> (ICICI, Axis, HDFC, SBI, etc.).</li>
+        <li><strong>As PA-style merchant flows:</strong> Onboarding and business compliance sit with the gateway/PA layer; underlying UPI txn execution uses partner bank APIs — PayU today, PaySwitch tomorrow with fewer intermediaries.</li>
+        <li><strong>Credit on UPI:</strong> NBFC-issued credit over UPI requires co-brand with a scheduled commercial bank or PPI-wallet linkage — relevant for future E-Fin product extensions, not core EMI collect.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <strong>Strategic takeaway:</strong> Replacing PayU is not about bypassing regulation — it is about
+      <em>shortening the regulated chain</em>. PaySwitch sits adjacent to the sponsor bank’s switch connection
+      (DwarkaSwitch), giving E-Fin better economics, faster settlement, and higher success rates while
+      remaining fully within RBI/NPCI architecture.
+    </div>
+  </section>
+
+  <section id="banks">
+    <h2>Regulator-Aware Two-Bank Architecture</h2>
+    <p class="section-lead">
+      A <strong>cooperative bank</strong> (DCCB sponsor) is strategic for switch certification and inclusion rails —
+      but NPCI/RBI constraints limit using a cooperative bank alone for high-volume fintech merchant settlement.
+      PaySwitch uses a <strong>hybrid routing</strong> design (honest, audit-ready).
+    </p>
+
+    <div class="mermaid-wrap">
+      <pre class="mermaid">
+flowchart TB
+  PS[PaySwitch Router]
+  PS --> L[Cooperative Bank<br/>DCCB sponsor]
+  PS --> H[Commercial Scheduled Bank<br/>Nodal / Escrow account]
+  L --> L1[Penny drop / account verify]
+  L --> L2[Micro payouts]
+  H --> H1[Bulk IMPS / UPI payouts]
+  H --> H2[Commercial EMI collections & settlement]
+      </pre>
+    </div>
+
+    <div class="card">
+      <h3>Why hybrid?</h3>
+      <ul class="checklist">
+        <li><strong>DCCB constraints:</strong> Many DCCBs are NFS sub-members — cannot sponsor third-party PG acquiring at scale; settlement liquidity limits for multi-crore payday peaks.</li>
+        <li><strong>Cooperative sweet spot:</strong> Inclusion-focused flows — verification, small-value payouts — at lower unit economics (0.8X vs. aggregator pricing).</li>
+        <li><strong>Commercial bank:</strong> ICICI / Axis / HDFC / Yes Bank-style nodal setup for core UPI collect + bulk disbursals NPCI clears for fintech merchants.</li>
+        <li><strong>Reusable IP:</strong> Message parsing, ISO 8583, encryption, webhooks — same DwarkaSwitch engine; only routing rules differ.</li>
+      </ul>
+    </div>
+
+    <div class="callout warn">
+      <strong>Open items for joint technical workshop:</strong>
+      (1) Confirm cooperative bank partner’s NPCI direct vs. sub-member status and BIN/IIN range;
+      (2) Peak TPS + webhook SLA under PaySwitch load tests;
+      (3) Commercial bank nodal / escrow MOU timeline.
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <h2>Implementation Roadmap (Indicative)</h2>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Duration</th>
+            <th>Deliverables</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>0 — Discovery</strong></td>
+            <td>2 weeks</td>
+            <td>PayU contract &amp; volume audit; flow mapping; nodal account design; legal/compliance checklist</td>
+          </tr>
+          <tr>
+            <td><strong>1 — PaySwitch MVP</strong></td>
+            <td>6–8 weeks</td>
+            <td>REST APIs, webhooks, sandbox; penny drop + payout + UPI intent collect; E-Fin UAT</td>
+          </tr>
+          <tr>
+            <td><strong>2 — Pilot</strong></td>
+            <td>5–6 weeks</td>
+            <td>10–20% traffic shadow / canary; success-rate &amp; latency benchmarks vs. PayU</td>
+          </tr>
+          <tr>
+            <td><strong>3 — Cutover</strong></td>
+            <td>4 weeks</td>
+            <td>Full migration; dashboard &amp; MIS; hypercare war room</td>
+          </tr>
+          <tr>
+            <td><strong>4 — Optimize</strong></td>
+            <td>Ongoing</td>
+            <td>UPI AutoPay mandates; smart retry; multi-bank failover; commercial expansion</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="next">
+    <h2>Proposed Next Steps</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>For MLB / E-Fin</h3>
+        <ul class="checklist">
+          <li>Share last 90 days PayU MIS: volumes, success %, avg ticket, payout SLA</li>
+          <li>Introduce CTO + CFO + compliance for nodal / escrow structuring</li>
+          <li>Define pilot cohort (e.g. new borrowers only) and success KPIs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>For DwarkaGlobal</h3>
+        <ul class="checklist">
+          <li>Commercial bank nodal partner shortlist &amp; term sheet</li>
+          <li>PaySwitch API spec + SDK draft for E-Fin integration review</li>
+          <li>Load test report: TPS, webhook p99, failover drill</li>
+          <li>Co-branded pricing proposal (flagship anchor client terms)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <p class="source-note">
+    <strong>Sources &amp; context:</strong> Financial interpretation informed by MLB Securities / E-Fin public positioning
+    (<a href="https://mlbsecurities.com/">mlbsecurities.com</a>, <a href="https://mlbcapital.com/">mlbcapital.com</a>);
+    PayU pricing patterns from corporate.payu.com and industry benchmarks; architecture from DwarkaGlobal NPCI-Switch
+    (DwarkaSwitch) documentation — UPI/IMPS multi-rail switch, 10K+ TPS design, NPCI certification readiness;
+    regulatory notes on cooperative bank merchant acquiring per NPCI co-operative bank guidelines;
+    UPI PSP/PA/TPAP framework per RBI Payment Aggregator norms (net worth, escrow, data localisation)
+    and NPCI ecosystem onboarding requirements.
+    <br><br>
+  <strong>Prepared by:</strong> DwarkaGlobal Private Limited · DwarkaGlobal PaySwitch · Confidential draft for discussion — May 2026
+  </p>
+
+</main>
+
+<footer class="cta">
+  <h2>Let’s run money at the speed of E-Fin</h2>
+  <p>Schedule a 60-minute architecture &amp; commercial workshop with MLB Securities leadership.
+  We’ll bring live flow diagrams, a PayU–PaySwitch TCO model, and a pilot proposal.</p>
+  <a class="btn" href="mailto:contact@dwarkaglobal.com?subject=E-Fin%20PaySwitch%20Partnership">Request Workshop</a>
+</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "neutral",
+    securityLevel: "loose",
+    flowchart: { curve: "basis", padding: 16 }
+  });
+</script>
+</body>
+</html>
