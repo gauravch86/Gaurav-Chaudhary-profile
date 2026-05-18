@@ -51,6 +51,58 @@
       margin: 0 auto;
       position: relative;
       z-index: 1;
+      padding-right: 0;
+    }
+
+    /* Fixed px logo — does not shrink with viewport; scales only with browser zoom */
+    .hero-brand-logo {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      z-index: 10;
+      width: 320px;
+      height: 76px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 10px;
+      padding: 6px 10px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
+      line-height: 0;
+    }
+
+    .hero-brand-logo img {
+      width: 320px;
+      min-width: 320px;
+      max-width: 320px;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      object-position: left top;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+
+    @media (min-width: 901px) {
+      .hero-inner {
+        padding-right: 340px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-brand-logo {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 0 0 1.25rem auto;
+        width: 280px;
+        height: 66px;
+      }
+      .hero-brand-logo img {
+        width: 280px;
+        min-width: 280px;
+        max-width: 280px;
+      }
     }
 
     .badge-row {
@@ -397,6 +449,15 @@
 <body>
 
 <header class="hero">
+  <div class="hero-brand-logo">
+    <img
+      src="../assets/dwarkaglobal-logo.png"
+      alt="DwarkaGlobal — The Switch for Better Banking"
+      width="320"
+      height="76"
+      decoding="async"
+    />
+  </div>
   <div class="hero-inner">
     <div class="badge-row">
       <span class="badge gold">Confidential — Partnership Pitch</span>
