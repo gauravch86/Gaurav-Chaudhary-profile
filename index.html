@@ -323,6 +323,76 @@
       font-weight: 600;
     }
 
+    /* Core Competencies & Domain */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .comp-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 0.8rem 0.9rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .comp-card:hover {
+      border-color: rgba(212, 168, 83, 0.3);
+      transform: translateY(-1px);
+    }
+    .comp-icon {
+      flex-shrink: 0;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comp-icon svg { width: 1.15rem; height: 1.15rem; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .comp-icon.gold { background: rgba(212, 168, 83, 0.12); color: var(--gold); }
+    .comp-icon.purple { background: rgba(163, 113, 247, 0.12); color: #a371f7; }
+    .comp-icon.blue { background: rgba(88, 166, 255, 0.12); color: var(--accent); }
+    .comp-icon.green { background: rgba(63, 185, 80, 0.12); color: var(--success); }
+    .comp-icon.cyan { background: rgba(56, 189, 248, 0.12); color: #38bdf8; }
+    .comp-text { font-size: 0.82rem; color: var(--text); line-height: 1.45; padding-top: 0.15rem; }
+    .domain-block { margin-top: 1.25rem; }
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem;
+    }
+    @media (max-width: 560px) { .domain-grid { grid-template-columns: 1fr; } }
+    .domain-card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: linear-gradient(135deg, rgba(26, 35, 50, 0.9) 0%, var(--surface) 100%);
+      border: 1px solid rgba(212, 168, 83, 0.18);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+    .domain-icon {
+      flex-shrink: 0;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(212, 168, 83, 0.1);
+      color: var(--gold);
+    }
+    .domain-icon svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .domain-icon.telecom { background: rgba(88, 166, 255, 0.12); color: var(--accent); }
+    .domain-icon.fintech { background: rgba(63, 185, 80, 0.12); color: var(--success); }
+    .domain-text { font-size: 0.88rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .domain-text small { display: block; font-size: 0.75rem; font-weight: 400; color: var(--muted); margin-top: 0.2rem; }
+
     /* P&L Ownership Growth */
     .pnl-section { margin-top: 0.5rem; }
     .pnl-chart-wrap {
@@ -781,20 +851,49 @@
     <!-- Core Competencies -->
     <section>
       <h2>Core Competencies</h2>
-      <ul class="bullet-list">
-        <li>Strategic Advisory &amp; CxO Engagement</li>
-        <li>AI/ML Enablement and AI Factory Design</li>
-        <li>Program Delivery, Vendor Consolidation, P&amp;L Ownership &amp; Digital Transformation</li>
-        <li>Payments and Fintech (RBI/NPCI, UPI, IMPS, RTGS, NEFT)</li>
-        <li>Productization: API Gateway, Payment Gateway</li>
-        <li>ITIL, AIOps, Observability, Cloud Modernization</li>
-        <li>Pre-Sales, Commercial Structuring, TCO/Efficiency Optimization</li>
-      </ul>
-      <h3 class="section-subheading">Domain</h3>
-      <ul class="bullet-list">
-        <li>Telecom Transformation/Digitalization</li>
-        <li>Banking &amp; Payments/Fintech (RBI/NPCI: UPI, IMPS, RTGS, NEFT)</li>
-      </ul>
+      <div class="comp-grid">
+        <div class="comp-card">
+          <span class="comp-icon gold" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="comp-text">Strategic Advisory &amp; CxO Engagement</span>
+        </div>
+        <div class="comp-card">
+          <span class="comp-icon purple" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></span>
+          <span class="comp-text">AI/ML Enablement and AI Factory Design</span>
+        </div>
+        <div class="comp-card">
+          <span class="comp-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+          <span class="comp-text">Program Delivery, Vendor Consolidation, P&amp;L Ownership &amp; Digital Transformation</span>
+        </div>
+        <div class="comp-card">
+          <span class="comp-icon green" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></span>
+          <span class="comp-text">Payments and Fintech (RBI/NPCI, UPI, IMPS, RTGS, NEFT)</span>
+        </div>
+        <div class="comp-card">
+          <span class="comp-icon cyan" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+          <span class="comp-text">Productization: API Gateway, Payment Gateway</span>
+        </div>
+        <div class="comp-card">
+          <span class="comp-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></span>
+          <span class="comp-text">ITIL, AIOps, Observability, Cloud Modernization</span>
+        </div>
+        <div class="comp-card">
+          <span class="comp-icon gold" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg></span>
+          <span class="comp-text">Pre-Sales, Commercial Structuring, TCO/Efficiency Optimization</span>
+        </div>
+      </div>
+      <div class="domain-block">
+        <h3 class="section-subheading">Domain</h3>
+        <div class="domain-grid">
+          <div class="domain-card">
+            <span class="domain-icon telecom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
+            <div class="domain-text">Telecom Transformation/Digitalization</div>
+          </div>
+          <div class="domain-card">
+            <span class="domain-icon fintech" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg></span>
+            <div class="domain-text">Banking &amp; Payments/Fintech<small>RBI/NPCI: UPI, IMPS, RTGS, NEFT</small></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- P&L Ownership Growth -->
