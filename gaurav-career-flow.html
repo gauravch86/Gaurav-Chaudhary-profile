@@ -432,11 +432,83 @@
     .edu .school { color: var(--accent); font-size: 0.95rem; margin-bottom: 0.25rem; }
     .edu .years { font-size: 0.85rem; color: var(--muted); }
 
-    /* Key achievements strip */
-    .achievements { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem; }
-    .achievements .item { display: flex; align-items: center; gap: 0.5rem; }
-    .achievements .value { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
-    .achievements .label { font-size: 0.9rem; color: var(--muted); }
+    /* Key achievements */
+    .achieve-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 768px) { .achieve-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px) { .achieve-grid { grid-template-columns: 1fr; } }
+    .achieve-stat {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 0.75rem 0.65rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .achieve-stat:hover { border-color: rgba(212, 168, 83, 0.28); }
+    .achieve-stat .num {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .achieve-stat .title {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 0.4rem;
+      line-height: 1.25;
+    }
+    .achieve-stat .desc {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      line-height: 1.35;
+    }
+    .achieve-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+      margin-top: 0.65rem;
+    }
+    @media (max-width: 768px) { .achieve-highlights { grid-template-columns: 1fr; } }
+    .achieve-highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 0.7rem 0.85rem;
+      min-height: 100%;
+    }
+    .achieve-highlight .icon {
+      flex-shrink: 0;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: rgba(88, 166, 255, 0.12);
+      color: var(--accent);
+    }
+    .achieve-highlight.pnl .icon { background: rgba(212, 168, 83, 0.12); color: var(--gold); }
+    .achieve-highlight.ai .icon { background: rgba(163, 113, 247, 0.12); color: #a371f7; }
+    .achieve-highlight.award {
+      border-color: rgba(212, 168, 83, 0.28);
+      background: linear-gradient(135deg, rgba(212, 168, 83, 0.07) 0%, var(--surface) 100%);
+    }
+    .achieve-highlight.award .icon { background: rgba(212, 168, 83, 0.18); color: var(--gold); }
+    .achieve-highlight .text { font-size: 0.8rem; color: var(--text); line-height: 1.4; }
+    .achieve-highlight .text strong { color: var(--gold); font-weight: 600; }
 
     /* Contact */
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
@@ -784,14 +856,41 @@
     <!-- Key Achievements -->
     <section>
       <h2>Key achievements</h2>
-      <div class="achievements">
-        <div class="item"><span class="value">18+</span><span class="label">Years experience — IT industry leadership and delivery excellence</span></div>
-        <div class="item"><span class="value">15+</span><span class="label">Years at Amdocs — Progressive career growth and transformation leadership</span></div>
-        <div class="item"><span class="value">8+</span><span class="label">Countries — India, UK, Peru (relocation); key roles / travel to Indonesia, USA, Chile, Mexico, Ireland</span></div>
-        <div class="item"><span class="value">7</span><span class="label">Back-to-back transformation programs delivered across regions</span></div>
-        <div class="item"><span class="value">—</span><span class="label">Managed multi-million P&L portfolios with consistent EBIT growth</span></div>
-        <div class="item"><span class="value">—</span><span class="label">Spearheaded AI Factory setup and advanced digitalization initiatives</span></div>
-        <div class="item"><span class="value">★</span><span class="label">Recognized with CEO Award for $100M managed services deal</span></div>
+      <div class="achieve-grid">
+        <div class="achieve-stat">
+          <div class="num">18+</div>
+          <div class="title">Years experience</div>
+          <div class="desc">IT leadership &amp; delivery excellence</div>
+        </div>
+        <div class="achieve-stat">
+          <div class="num">15+</div>
+          <div class="title">Years at Amdocs</div>
+          <div class="desc">Progressive growth &amp; transformation</div>
+        </div>
+        <div class="achieve-stat">
+          <div class="num">8+</div>
+          <div class="title">Countries</div>
+          <div class="desc">India, UK, Peru · key roles across 6 regions</div>
+        </div>
+        <div class="achieve-stat">
+          <div class="num">7</div>
+          <div class="title">Transformations</div>
+          <div class="desc">Back-to-back programs delivered globally</div>
+        </div>
+      </div>
+      <div class="achieve-highlights">
+        <div class="achieve-highlight pnl">
+          <span class="icon">$</span>
+          <p class="text"><strong>Multi-million P&amp;L</strong> portfolios with consistent EBIT growth</p>
+        </div>
+        <div class="achieve-highlight ai">
+          <span class="icon">AI</span>
+          <p class="text"><strong>AI Factory</strong> setup &amp; advanced digitalization initiatives</p>
+        </div>
+        <div class="achieve-highlight award">
+          <span class="icon">★</span>
+          <p class="text"><strong>CEO Award</strong> — $100M managed services deal</p>
+        </div>
       </div>
     </section>
 
